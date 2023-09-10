@@ -50,7 +50,8 @@ export function useFilter(search: string, list: ListMeta, searchFields: string[]
 
     const trimmedSearch = search.trim();
     const conditions: Record<string, any>[] = [];
-    if (trimmedSearch.length > 0) {
+    // https://github.com/keystonejs/keystone/issues/8784
+    if (list.fields["id"].fieldMeta.kind != "autoincrement" && trimmedSearch.length > 0) {
       conditions.push({ id: { equals: trimmedSearch } });
     }
 
